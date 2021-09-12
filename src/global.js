@@ -6,4 +6,5 @@ export const global = {
 	turn: 1,
 	spaces1: 0,
 	spaces2: 0,
+	mode: "",
 };

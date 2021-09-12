@@ -1,5 +1,6 @@
 import * as DEFS from './defs.js';
 import {global} from './global.js';
+import {action} from './action.js';
 
 export const init = function () {
 	let board = document.querySelector("#board");
@@ -95,70 +96,26 @@ export const init = function () {
 	
 	document.querySelectorAll(".wall").forEach((wall) => {
 		wall.addEventListener("click", (e) => {
+			if (global.mode == "com" && global.turn == 2) return;
+			
 			if (e.currentTarget.getAttribute("data-clicked") == 1) return;
 			e.currentTarget.setAttribute("data-clicked", 1);
 			
-			let isGetSpace = false;
 			let x = e.currentTarget.getAttribute("data-x");
 			let y = e.currentTarget.getAttribute("data-y");
-			if (y < DEFS.DOT_ROW_NUM - 1 && x < DEFS.DOT_COL_NUM - 1) {
-				global.spaces[y][x]++;
-				if (global.spaces[y][x] == 4) {
-					getSpace(x, y);
-					isGetSpace = true;
-				}
-			}
-			if (e.currentTarget.getAttribute("data-type") === "h") {
-				if (y > 0) {
-					global.spaces[y - 1][x]++;
-					if (global.spaces[y - 1][x] == 4) {
-						getSpace(x, y - 1);
-						isGetSpace = true;
-					}
-				}
-			} else {
-				if (x > 0) {
-					global.spaces[y][x - 1]++;
-					if (global.spaces[y][x - 1] == 4) {
-						getSpace(x - 1, y);
-						isGetSpace = true;
-					}
-				}
-			}
-			if (--global.counter == 0) {
-				if (global.spaces1 > global.spaces2) {
-					alert("Player 1 Win!!");
-				} else {
-					alert("Player 2 Win!!");
-				}
-			}
-			if (!isGetSpace) {
-					changeTurn();
-			}
-
-console.table(global.spaces);
+			let type = e.currentTarget.getAttribute("data-type");
+			action(x, y, type);
+//console.table(global.spaces);
 		});
 	});
-}
-
-function getSpace(x, y) {
-	if (global.turn == 1) {
-		document.querySelector("#x" + x + "y" + y).setAttribute("fill", "lime");
-		document.querySelector("#player1 .spaces span").innerText = ++global.spaces1;
-	} else {
-		document.querySelector("#x" + x + "y" + y).setAttribute("fill", "magenta");
-		document.querySelector("#player2 .spaces span").innerText = ++global.spaces2;
-	}
-}
-
-function changeTurn() {
-	if (global.turn == 1) {
-		global.turn = 2;
-		document.querySelector("#player1 .arrow").classList.remove("current");
-		document.querySelector("#player2 .arrow").classList.add("current");
-	} else {
-		global.turn = 1;
-		document.querySelector("#player1 .arrow").classList.add("current");
-		document.querySelector("#player2 .arrow").classList.remove("current");
-	}
+	
+	document.querySelector("#mode_player").addEventListener("click", (e) => {
+		global.mode = "player";
+		document.querySelector("#intro").classList.add("hide");
+	});
+	
+	document.querySelector("#mode_com").addEventListener("click", (e) => {
+		global.mode = "com";
+		document.querySelector("#intro").classList.add("hide");
+	});
 }
