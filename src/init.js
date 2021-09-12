@@ -73,22 +73,6 @@ export const init = function () {
 		}
 	}
 
-	let dotTemp = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-	dotTemp.setAttribute("r", DEFS.DOT_RADIUS);
-	dotTemp.setAttribute("fill", DEFS.WALL_STROKE);
-	let dots = new Array(DEFS.DOT_ROW_NUM);
-	for (let r = 0; r < DEFS.DOT_ROW_NUM; r++) {
-		dots[r] = new Array(DEFS.DOT_COL_NUM);
-	}
-	for (let r = 0; r < DEFS.DOT_ROW_NUM; r++) {
-		for (let c = 0; c < DEFS.DOT_COL_NUM; c++) {
-			dots[r][c] = dotTemp.cloneNode(true);
-			dots[r][c].setAttribute("cx", DEFS.BOARD_PADDING + DEFS.DOT_RADIUS + DEFS.DOT_INTERVAL * c);
-			dots[r][c].setAttribute("cy", DEFS.BOARD_PADDING + DEFS.DOT_RADIUS + DEFS.DOT_INTERVAL * r);
-//			board.appendChild(dots[r][c]);
-		}
-	}
-
 	global.spaces = new Array(DEFS.DOT_ROW_NUM - 1);
 	for (let r = 0; r < DEFS.DOT_ROW_NUM - 1; r++) {
 		global.spaces[r] = Array(DEFS.DOT_COL_NUM - 1).fill(0);

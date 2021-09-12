@@ -55,11 +55,14 @@ function comAction() {
 	while (true) {
 		let index = util.rand(0, walls.length - 1);
 		if (walls[index].getAttribute("data-clicked") == 0) {
-			walls[index].setAttribute("data-clicked", 1);
-			let x = walls[index].getAttribute("data-x");
-			let y = walls[index].getAttribute("data-y");
-			let type = walls[index].getAttribute("data-type");
-			action(x, y, type);
+			setTimeout(function () {
+				walls[index].setAttribute("data-clicked", 1);
+				let x = walls[index].getAttribute("data-x");
+				let y = walls[index].getAttribute("data-y");
+				let type = walls[index].getAttribute("data-type");
+				action(x, y, type);
+			}, 1000);
+			util.updateMsg("Thinking...");
 			break;
 		} else {
 //console.log("fail");
