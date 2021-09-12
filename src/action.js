@@ -32,9 +32,9 @@ export const action = function action(x, y, type) {
 	if (--global.counter == 0) {
 		let msg = "";
 		if (global.spaces1 > global.spaces2) {
-			msg = "Player 1 Win!!";
+			msg = global.player1Name + " Win!!";
 		} else {
-			msg = "Player 2 Win!!";
+			msg = global.player2Name + " Win!!";
 		}
 		util.updateMsg(msg + "<br /><a href='javascript:location.reload()'>Start page</a>");
 		return;
@@ -62,7 +62,7 @@ function comAction() {
 			action(x, y, type);
 			break;
 		} else {
-console.log("fail");
+//console.log("fail");
 		}
 	}
 }

@@ -18,6 +18,10 @@ html, body {
 	height: 100%;
 	position: fixed;
 	background: black;
+	padding: 30px;
+}
+#intro h1 {
+	margin: 0;
 }
 #intro.hide {
 	display: none;

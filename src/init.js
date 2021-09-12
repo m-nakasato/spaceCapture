@@ -110,12 +110,24 @@ export const init = function () {
 	});
 	
 	document.querySelector("#mode_player").addEventListener("click", (e) => {
-		global.mode = "player";
-		document.querySelector("#intro").classList.add("hide");
+		selectMode("player");
 	});
 	
 	document.querySelector("#mode_com").addEventListener("click", (e) => {
-		global.mode = "com";
-		document.querySelector("#intro").classList.add("hide");
+		selectMode("com");
 	});
+}
+
+function selectMode(mode) {
+	global.mode = mode;
+	if (mode == "player") {
+		global.player1Name = "Player 1";
+		global.player2Name = "Player 2";
+	} else if (mode == "com") {
+		global.player1Name = "Player";
+		global.player2Name = "Computer";
+	}
+	document.querySelector("#player1 div:not(.arrow) h2").innerHTML = global.player1Name;
+	document.querySelector("#player2 div:not(.arrow) h2").innerHTML = global.player2Name;
+	document.querySelector("#intro").classList.add("hide");
 }
