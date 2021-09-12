@@ -51,22 +51,55 @@ export const action = function action(x, y, type) {
 }
 
 function comAction() {
-	let walls = document.querySelectorAll(".wall");
-	while (true) {
+	if (global.level == "easy") {
+		let walls = document.querySelectorAll(".wall[data-clicked='0']");
 		let index = util.rand(0, walls.length - 1);
-		if (walls[index].getAttribute("data-clicked") == 0) {
-			setTimeout(function () {
-				walls[index].setAttribute("data-clicked", 1);
-				let x = walls[index].getAttribute("data-x");
-				let y = walls[index].getAttribute("data-y");
-				let type = walls[index].getAttribute("data-type");
-				action(x, y, type);
-			}, 1000);
-			util.updateMsg("Thinking...");
-			break;
-		} else {
-//console.log("fail");
+		setTimeout(function () {
+			walls[index].setAttribute("data-clicked", 1);
+			let x = walls[index].getAttribute("data-x");
+			let y = walls[index].getAttribute("data-y");
+			let type = walls[index].getAttribute("data-type");
+			action(x, y, type);
+		}, 1000);
+		util.updateMsg("Thinking...");
+		return;
+	} else {
+		for (let y = 0; y < global.spaces.length; y++) {
+			for (let x = 0; x < global.spaces[y].length; x++) {
+				if (global.spaces[y][x] == 3) {
+					let top = document.querySelector(".wall[data-x='" + x + "'][data-y='" + y + "'][data-type='h']");
+					let right = document.querySelector(".wall[data-x='" + (x + 1) + "'][data-y='" + y + "'][data-type='v']");
+					let bottom = document.querySelector(".wall[data-x='" + x + "'][data-y='" + (y + 1) + "'][data-type='h']");
+					let left = document.querySelector(".wall[data-x='" + x + "'][data-y='" + y + "'][data-type='v']");
+					if (top.getAttribute("data-clicked") == 0) {
+						top.setAttribute("data-clicked", 1);
+						action(x, y, "h");
+					} else if (right.getAttribute("data-clicked") == 0) {
+						right.setAttribute("data-clicked", 1);
+						action(x + 1, y, "v");
+					} else if (bottom.getAttribute("data-clicked") == 0) {
+						bottom.setAttribute("data-clicked", 1);
+						action(x, y + 1, "h");
+					} else if (left.getAttribute("data-clicked") == 0) {
+						left.setAttribute("data-clicked", 1);
+						action(x, y, "v");
+					}
+					return;
+				}
+			}
 		}
+		
+		let walls = document.querySelectorAll(".wall[data-clicked='0']");
+		let index = util.rand(0, walls.length - 1);
+		setTimeout(function () {
+			walls[index].setAttribute("data-clicked", 1);
+			let x = walls[index].getAttribute("data-x");
+			let y = walls[index].getAttribute("data-y");
+			let type = walls[index].getAttribute("data-type");
+			action(x, y, type);
+		}, 1000);
+		util.updateMsg("Thinking...");
+		return;
 	}
 }
 

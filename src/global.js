@@ -7,6 +7,7 @@ export const global = {
 	spaces1: 0,
 	spaces2: 0,
 	mode: "",
+	level: "",
 	player1Name: "",
 	player2Name: "",
 };

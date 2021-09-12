@@ -28,11 +28,13 @@ html, body {
 }
 #intro ul a {
 	cursor: pointer;
+	text-decoration: underline;
 }
 #mode_player:hover {
 	color: lime;
 }
-#mode_com:hover {
+#mode_com_easy:hover,
+#mode_com_hard:hover {
 	color: magenta;
 }
 #board {
@@ -92,5 +94,5 @@ x	background: black;
 	border: 2px solid white;
 	padding: 5px;
 	width: 150px;
-	height: 3em;
+	min-height: 3em;
 }

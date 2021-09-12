@@ -97,8 +97,14 @@ export const init = function () {
 		selectMode("player");
 	});
 	
-	document.querySelector("#mode_com").addEventListener("click", (e) => {
+/*	document.querySelector("#mode_com_easy").addEventListener("click", (e) => {
 		selectMode("com");
+		global.level = "easy";
+	});*/
+	
+	document.querySelector("#mode_com_hard").addEventListener("click", (e) => {
+		selectMode("com");
+		global.level = "hard";
 	});
 }
 
